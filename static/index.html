@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="stylesheets/base.css">
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  <script src="js/app.js" defer></script>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: false,
+  },
+  displayAlign: "left"
+});
+  </script>
+  <title>ssdeep Visualization</title>
+</head>
+<body>
+  <p>
+  The algorithm defined in ssdeep <a href="https://www.dfrws.org/sites/default/files/session-files/paper-identifying_almost_identical_files_using_context_triggered_piecewise_hashing.pdf" target="_blank">paper</a> for rolling-hash:
+  </p>
+  <div id="algorithm">
+  $$
+    y = y - x \\
+    y = y + size \cdot d \\
+    x = x + d \\
+    x = x - window[c\bmod{size}] \\
+    window[c \bmod size] = d \\
+    c = c + 1 \\
+    z = z \ll 5 \\
+    z = z \oplus d
+  $$
+  <p>where the return is $x + y + z$</p>
+  </div>
+  <label for="input">Input text:</label>
+  <textarea id="input" cols="60" rows="4" placeholder="text to hash">Fuzzy Wuzzy was a bear, Fuzzy Wuzzy had no hair</textarea><br/><br/>
+  <button type="button" onclick="init()">Initialize input</button>
+  <button type="button" onclick="stepHash()" accesskey="n">Step the algorithm</button><br/><br/>
+  <label for="sig">ssdeep:</label>
+  <input id="sig" size="50" readonly></input>
+  <hr/>
+  <p><i>Note, all arrays here flow from right to left for ease of comparison with the MSB <- LSB bit array(s)</i><p>
+  <svg id="svgDoc" height="500"/>
+</body>
+</html>
