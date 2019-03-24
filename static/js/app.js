@@ -17,7 +17,6 @@ var updateSizing = function(){
   }
 };
 
-
 let strToByteArr = function(str){
   var arr = [];
   for (var i = 0; i < str.length; i++) {
@@ -221,5 +220,10 @@ let init = function() {
     render();
   });
 }
+
+window.onresize = function(event) {
+  updateSizing();
+  render();
+};
 
 init();
