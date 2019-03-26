@@ -1,37 +1,43 @@
-div#algorithm {
-  padding-left: 1.3em;
-}
-
 body {
-  padding : 2em;
-  margin  : 0;
+  padding-left: 2em;
 }
 
-form {
-  position: relative;
-  margin : 0 auto;
+form div {
+  display: block;
+  padding: 0.6em;
 }
 
-label, output {
-    display:inline-block;
+form label {
+  margin: 5px 10px 5px 0;
+  vertical-align: top;
+}
+
+form input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+form output {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius : 5px;
 }
 
 textarea {
   border-radius : 5px;
- 	display       : inline;
-  margin        : 10px 0 0 -10px;
-  overflow      : auto;
-  padding       : 10px;
-  width         : 50vw;
+  padding       : 1em;
+  width         : 30em;
 }
 
 textarea:focus {
   background   : rgba(0,0,0,.1);
   outline      : none;
-}
-
-output {
- 	display     : inline;
 }
 
 #button1 {
@@ -62,18 +68,14 @@ button:hover, button:focus {
   color   : #FFF;
 }
 
-svg {
-  height : 500px; 
-  width  : 100%;
-}
-
 svg text {
-  font-size: 0.99vw;
-  dominant-baseline: middle;
+  font-size: 0.4vh;
+  dominant-baseline: central;
 }
 
 rect {
 	fill:none;
 	stroke:Gray;
+  stroke-width: 0.05vh;
 	fill-opacity:0.3;
 }

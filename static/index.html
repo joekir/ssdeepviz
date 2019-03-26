@@ -10,11 +10,13 @@
   <title>ssdeepviz</title>
 </head>
 <body>
-  <form>
-    <h1>ssdeepviz</h1>
+  <h1>ssdeepviz - read the paper <a href="https://www.dfrws.org/sites/default/files/session-files/paper-identifying_almost_identical_files_using_context_triggered_piecewise_hashing.pdf" target="_blank">paper</a> first</h1>
+  <form class="form-inline">
     <div id="input_div">
-      <label for="input">Input Text:</label>
+      <label for="input">Input Text</label>
       <textarea id="input" name="input_text">Fuzzy Wuzzy was a bear, Fuzzy Wuzzy had no hair</textarea>
+    </div>
+    <div>
       <label for="sig">ssdeep sig</label>
       <output id="sig"></output>
     </div>
@@ -23,6 +25,8 @@
       <button id="button2" type="button" onclick="stepHash()">Step the Algorithm</button>
     </div>
   </form>
-  <svg id="svgDoc"/>
+  <svg id="svgDoc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+    <!-- https://css-tricks.com/scale-svg -->
+  </svg>
 </body>
 </html>
