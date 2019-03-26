@@ -8,7 +8,8 @@ var cubeWidth = 25,
        svgDoc = d3.selectAll("svg");
 
 var updateSizing = function(){
-  cubeWidth = window.innerWidth / 50;
+  // Info - https://ryanve.com/lab/dimensions/
+  cubeWidth = window.screen.width / 250;
 
   if (typeof inputBytes === 'undefined'){
     xBuffer = 32*cubeWidth;
@@ -16,7 +17,6 @@ var updateSizing = function(){
     xBuffer = inputBytes.length * cubeWidth;
   }
 };
-
 
 let strToByteArr = function(str){
   var arr = [];
@@ -43,13 +43,22 @@ let bitArray = function(arr) {
     return output;
 }
 
+let getElementFontSize = function(name){
+  var el = document.getElementsByClassName('title').item(0)
+  var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+  var fontSize = parseFloat(style);
+  // now you have a proper float for the font size (yes, it can be a float, not just an integer)
+  el.style.fontSize = (fontSize + 1) + 'px';
+}
+
+
 let appendArray = function(title, backingArray, highlight, yIncrement){
   var items = svgDoc.selectAll("g");
 
   items.data([title])
        .enter()
        .append("text")
-       .attr("x", xBuffer - title.length*5.5) // no clue why it's 5.5, #grafix :D
+       .attr("x", xBuffer - title.length*0.20*cubeWidth)
        .attr("y", yBuffer)
        .text(d => d);
 
@@ -57,7 +66,7 @@ let appendArray = function(title, backingArray, highlight, yIncrement){
        .enter()
        .append("rect")
        .attr("x", (d,i) => { return (xBuffer - i*cubeWidth) })
-       .attr("y", yBuffer+10)
+       .attr("y", yBuffer+0.4*cubeWidth)
        .attr("width", cubeWidth)
        .attr("height", cubeWidth)
        .style("fill", highlight);
@@ -66,10 +75,10 @@ let appendArray = function(title, backingArray, highlight, yIncrement){
        .enter()
        .append("text")
        .text((d) => d.toString(16)) // mostly this will be bits, but if not hex it
-       .attr("x", (d,i) => { return (xBuffer - i*cubeWidth) + cubeWidth/4 })
+       .attr("x", (d,i) => { return (xBuffer - i*cubeWidth + cubeWidth/5)})
        .attr("y", yBuffer + cubeWidth);
 
-  yBuffer+=yIncrement;
+  yBuffer+=yIncrement*cubeWidth;
 }
 
 let appendText = function(titles, numbers){
@@ -86,7 +95,7 @@ let appendText = function(titles, numbers){
        .enter()
        .append("rect")
        .attr("x", (d,i) => { return xBuffer - cubeWidth*3 - i*cubeWidth*5 })
-       .attr("y", yBuffer+10)
+       .attr("y", yBuffer+0.4*cubeWidth)
        .attr("width", cubeWidth * 4)
        .attr("height", cubeWidth);
 
@@ -102,11 +111,9 @@ let appendText = function(titles, numbers){
        })
        .attr("x", (d,i) => { return xBuffer - cubeWidth*3 - i*cubeWidth*5 + cubeWidth/4 })
        .attr("y", yBuffer + 1.10*cubeWidth);
-
-  yBuffer+=70;
 }
 
-let appendLegend = function(titles, colours){
+let appendLegend = function(titles, colours, yIncrement){
   var items = svgDoc.selectAll("g");
 
   items.data(colours)
@@ -125,7 +132,7 @@ let appendLegend = function(titles, colours){
        .attr("x", (d,i) => { return (xBuffer - i*cubeWidth*7) })
        .attr("y", yBuffer + 0.60*cubeWidth);
 
-  yBuffer+=70;
+  yBuffer+=yIncrement*cubeWidth;
 }
 
 let noop = function(d, i) { return null };
@@ -165,18 +172,20 @@ let newHash = function(done){
 
 let render = function(){
   let dBits = bitArray([inputBytes[ctr]]);
-  yBuffer=40;
+  yBuffer=1*cubeWidth;
 
   svgDoc.html(null);
 
-  appendLegend(["Hits", "Double Hits"], [hitColour, doubleHitColour]);
-  appendArray("Input Text", inputText, input(hits, doubleHits, ctr),70);
-  appendArray("Input Bytes (hex)", inputBytes, input(hits, doubleHits, ctr),70);
-  appendArray("Bits of current selection (d)", dBits.slice(0,8),noop, 70);
-  appendArray("Window Array (hex)", fh.rolling_hash.window, noop, 70);
+  appendLegend(["Hits", "Double Hits"], [hitColour, doubleHitColour],3);
+  appendArray("Input Text", inputText, input(hits, doubleHits, ctr),3);
+  appendArray("Input Bytes (hex)", inputBytes, input(hits, doubleHits, ctr),3);
+  appendArray("Bits of current selection (d)", dBits.slice(0,8),noop, 3);
+  appendArray("Window Array (hex)", fh.rolling_hash.window, noop, 3);
 
   appendText(["Z Value", "Y Value", "X Value"],
-    [fh.rolling_hash.z.toString(10), fh.rolling_hash.y.toString(10), fh.rolling_hash.x.toString(10)]);
+    [fh.rolling_hash.z.toString(10),
+      fh.rolling_hash.y.toString(10),
+      fh.rolling_hash.x.toString(10)]);
 
   let sig = fh.block_size + ":" + fh.sig1 + ":" + fh.sig2;
   document.getElementById("sig").value = sig;
@@ -221,5 +230,10 @@ let init = function() {
     render();
   });
 }
+
+window.onresize = function(event) {
+  updateSizing();
+  render();
+};
 
 init();

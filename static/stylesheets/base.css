@@ -1,18 +1,81 @@
-div#algorithm {
-  padding-left: 1.3em;
+body {
+  padding-left: 2em;
 }
 
-svg {
-  width: 100%;
+form div {
+  display: block;
+  padding: 0.6em;
+}
+
+form label {
+  margin: 5px 10px 5px 0;
+  vertical-align: top;
+}
+
+form input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+form output {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius : 5px;
+}
+
+textarea {
+  border-radius : 5px;
+  padding       : 1em;
+  width         : 30em;
+}
+
+textarea:focus {
+  background   : rgba(0,0,0,.1);
+  outline      : none;
+}
+
+#button1 {
+  left         : 440px;
+}
+#button2 {
+  left         : 540px;
+}
+
+button {
+  padding      : 5px;
+
+  font         : bold .8em sans-serif;
+  border       : 2px solid #333;
+  border-radius: 5px;
+  background   : none;
+
+  cursor       : pointer;
+}
+
+button:after {
+  content: " >>>";
+}
+
+button:hover, button:focus {
+  outline   : none;
+  background: #000;
+  color   : #FFF;
+}
+
+svg text {
+  font-size: 0.4vh;
+  dominant-baseline: central;
 }
 
 rect {
 	fill:none;
 	stroke:Gray;
+  stroke-width: 0.05vh;
 	fill-opacity:0.3;
-}
-
-svg text {
-  font-size: 12px;
-  dominant-baseline: middle;
 }
