@@ -1,5 +1,7 @@
 # SSDeepViz - A Binary Visualization of the Algorithm
 
+[![Build Status](https://travis-ci.org/joekir/ssdeepviz.svg?branch=master)](https://travis-ci.org/joekir/ssdeepviz)
+
 ## Dependencies
 
 - [golang](https://golang.org/dl/)
