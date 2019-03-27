@@ -1,6 +1,5 @@
-const hitColour = "red",
-  counterColour = "turquoise",
-doubleHitColour = "orange";
+const counterColour = "chartreuse";
+const hitColours = ["red","dodgerblue","indigo"];
 
 var cubeWidth = 25,
       xBuffer = 32*cubeWidth,
@@ -129,7 +128,7 @@ let appendLegend = function(titles, colours, yIncrement){
        .enter()
        .append("text")
        .text((d) => { return d })
-       .attr("x", (d,i) => { return (xBuffer - i*cubeWidth*7) })
+       .attr("x", (d,i) => { return (xBuffer - i*cubeWidth*5 - cubeWidth*2) })
        .attr("y", yBuffer + 0.60*cubeWidth);
 
   yBuffer+=yIncrement*cubeWidth;
@@ -139,15 +138,22 @@ let noop = function(d, i) { return null };
 
 let input = function(hits, doubleHits, pos) {
     return function(d, i) {
-        if (doubleHits.includes(i)) {
-            return doubleHitColour;
-        }
+        let ctr=0;
+
         if (hits.includes(i)) {
-            return hitColour;
+          ctr+=1;
+        }
+
+        if (doubleHits.includes(i)) {
+          ctr+=2;
+        }
+
+        if (ctr > 0) {
+          return hitColours[ctr-1];
         }
 
         if (i == pos) {
-            return counterColour;
+          return counterColour;
         }
     };
 };
@@ -176,7 +182,7 @@ let render = function(){
 
   svgDoc.html(null);
 
-  appendLegend(["Hits", "Double Hits"], [hitColour, doubleHitColour],3);
+  appendLegend(["ModBS", "Mod2BS", "Both"], hitColours,3);
   appendArray("Input Text", inputText, input(hits, doubleHits, ctr),3);
   appendArray("Input Bytes (hex)", inputBytes, input(hits, doubleHits, ctr),3);
   appendArray("Bits of current selection (d)", dBits.slice(0,8),noop, 3);
@@ -193,6 +199,11 @@ let render = function(){
 
 let stepHash = function(){
   ctr++;
+
+  // Block while we wait for server response
+  // Obviosuly this is a cosmetic block, but this isn't some security check
+  // If someone wants to gun via the console, then they just get wrong ssdeep results :P
+  document.getElementById("button2").disabled = true;
 
   $.ajax ({
         url: "/StepHash",
@@ -214,6 +225,9 @@ let stepHash = function(){
       }
       render();
     }
+  }).always(function(){
+    // Renable the button
+    document.getElementById("button2").disabled = false;
   });
 }
 
