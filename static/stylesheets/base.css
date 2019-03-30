@@ -68,14 +68,9 @@ button:hover, button:focus {
   color   : #FFF;
 }
 
-svg text {
-  font-size: 0.4vh;
-  dominant-baseline: central;
-}
-
 rect {
-	fill:none;
-	stroke:Gray;
+  fill:none;
+  stroke:Gray;
   stroke-width: 0.05vh;
-	fill-opacity:0.3;
+  fill-opacity:0.3;
 }

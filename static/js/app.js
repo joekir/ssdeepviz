@@ -1,6 +1,9 @@
 const counterColour = "chartreuse";
 const hitColours = ["red","dodgerblue","indigo"];
 
+const elemFontSize = 3,
+     titleFontSize = 4;
+
 var cubeWidth = 25,
       xBuffer = 32*cubeWidth,
       yBuffer = 40,
@@ -42,22 +45,14 @@ let bitArray = function(arr) {
     return output;
 }
 
-let getElementFontSize = function(name){
-  var el = document.getElementsByClassName('title').item(0)
-  var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
-  var fontSize = parseFloat(style);
-  // now you have a proper float for the font size (yes, it can be a float, not just an integer)
-  el.style.fontSize = (fontSize + 1) + 'px';
-}
-
-
 let appendArray = function(title, backingArray, highlight, yIncrement){
   var items = svgDoc.selectAll("g");
 
   items.data([title])
        .enter()
        .append("text")
-       .attr("x", xBuffer - title.length*0.20*cubeWidth)
+       .style("font-size", titleFontSize)
+       .attr("x", xBuffer - title.length*0.30*cubeWidth)
        .attr("y", yBuffer)
        .text(d => d);
 
@@ -74,6 +69,7 @@ let appendArray = function(title, backingArray, highlight, yIncrement){
        .enter()
        .append("text")
        .text((d) => d.toString(16)) // mostly this will be bits, but if not hex it
+       .style("font-size", elemFontSize)
        .attr("x", (d,i) => { return (xBuffer - i*cubeWidth + cubeWidth/5)})
        .attr("y", yBuffer + cubeWidth);
 
@@ -86,6 +82,7 @@ let appendText = function(titles, numbers){
   items.data(titles)
        .enter()
        .append("text")
+       .style("font-size", titleFontSize)
        .attr("x", (d,i) => { return xBuffer - cubeWidth*3 - i*cubeWidth*5 })
        .attr("y", yBuffer)
        .text((d) => { return d });
@@ -101,6 +98,7 @@ let appendText = function(titles, numbers){
   items.data(numbers)
        .enter()
        .append("text")
+       .style("font-size", elemFontSize)
        .text((d) => {
          var result = d;
          if (typeof(d) === "number") {
@@ -127,6 +125,7 @@ let appendLegend = function(titles, colours, yIncrement){
   items.data(titles)
        .enter()
        .append("text")
+       .style("font-size", elemFontSize)
        .text((d) => { return d })
        .attr("x", (d,i) => { return (xBuffer - i*cubeWidth*5 - cubeWidth*2) })
        .attr("y", yBuffer + 0.60*cubeWidth);
