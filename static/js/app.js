@@ -1,22 +1,17 @@
 const counterColour = "chartreuse";
 const hitColours = ["red","dodgerblue","indigo"];
 
-const elemFontSize = 3,
-     titleFontSize = 4;
+const elemFontSize = "4px",
+     titleFontSize = "5px";
 
-var cubeWidth = 25,
-      xBuffer = 32*cubeWidth,
+var cubeWidth = 10,
+      xBuffer = 280,
       yBuffer = 40,
        svgDoc = d3.selectAll("svg");
 
 var updateSizing = function(){
-  // Info - https://ryanve.com/lab/dimensions/
-  cubeWidth = window.screen.width / 250;
-
-  if (typeof inputBytes === 'undefined'){
-    xBuffer = 32*cubeWidth;
-  } else {
-    xBuffer = inputBytes.length * cubeWidth;
+  if (typeof inputBytes !== 'undefined'){
+    cubeWidth = xBuffer / inputBytes.length;
   }
 };
 
