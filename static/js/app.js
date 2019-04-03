@@ -47,7 +47,7 @@ let appendArray = function(title, backingArray, highlight, yIncrement){
        .enter()
        .append("text")
        .style("font-size", titleFontSize)
-       .attr("x", xBuffer - title.length*0.30*cubeWidth)
+       .attr("x", xBuffer - title.length*0.40*cubeWidth)
        .attr("y", yBuffer)
        .text(d => d);
 

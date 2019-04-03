@@ -61,11 +61,8 @@ func NewHash(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	session, err := cookieStore.Get(r, CTPH_COOKIE)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	// A session is always returned
+	session, _ := cookieStore.Get(r, CTPH_COOKIE)
 
 	if !session.IsNew {
 		log.Println("Deleting old cookie")
