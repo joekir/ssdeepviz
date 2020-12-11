@@ -1,6 +1,7 @@
 # SSDeepViz - A Binary Visualization of the Algorithm
 
-[![Build Status](https://travis-ci.org/joekir/ssdeepviz.svg?branch=master)](https://travis-ci.org/joekir/ssdeepviz)
+**The functionality here as been incorporated into the project Algo Explore (https://github.com/joekir/algoexplore) please go there to see the latest code**
+
 
 ## Dependencies
 
