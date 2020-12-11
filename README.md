@@ -1,7 +1,7 @@
-# SSDeepViz - A Binary Visualization of the Algorithm
-
 **The functionality here as been incorporated into the project Algo Explore (https://github.com/joekir/algoexplore) please go there to see the latest code**
 
+
+# SSDeepViz - A Binary Visualization of the Algorithm
 
 ## Dependencies
 
